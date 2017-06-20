@@ -1,2 +1,2 @@
 # caos
-CAOS (Cooperative Active Object System)
+CAOS (Cooperative Active Objects System)

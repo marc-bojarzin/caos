@@ -8,6 +8,7 @@ class abstract_active_object
 {
 public:
     abstract_active_object();
+    virtual void on_destroy() { }
 };
 
 } // namespace caos

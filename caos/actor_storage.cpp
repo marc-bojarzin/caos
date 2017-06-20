@@ -1,8 +1,8 @@
-#include "caos/actor_storage.h"
+#include "caos/active_object_storage.h"
 
 namespace caos {
 
-actor_storage::actor_storage()
+active_object_storage::active_object_storage()
 {
 
 }

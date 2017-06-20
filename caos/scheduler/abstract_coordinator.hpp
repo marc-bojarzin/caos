@@ -11,11 +11,15 @@ class abstract_coordinator
     active_object_system* home_system;
 
 public:
-    abstract_coordinator()
-        : home_system(nullptr)
-    {
-    }
+    abstract_coordinator();
 };
+
+
+
+abstract_coordinator::abstract_coordinator()
+    : home_system(nullptr)
+{
+}
 
 } // namespace scheduler
 } // namespace caos
