@@ -28,7 +28,7 @@ system_configuration::system_configuration()
     worker_moderate_steal_interval  =  5;
     worker_moderate_sleep_duration_us  =  50;
     worker_relaxed_steal_interval  =  1;
-    worker_relaxed_sleep_duration_us  =  10000;
+    worker_relaxed_sleep_duration_us  =  10000;  // 10ms
 }
 
 } // namespace caos

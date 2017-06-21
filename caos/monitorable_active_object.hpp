@@ -5,11 +5,21 @@
 
 namespace caos {
 
+//--------------------------------------------------------------------------------------------------
+
 class monitorable_active_object : public abstract_active_object
 {
 public:
-    monitorable_active_object();
+    monitorable_active_object()
+    {
+    }
+
+protected:
+    virtual void on_cleanup();
 };
+
+//--------------------------------------------------------------------------------------------------
+
 
 } // namespace caos
 

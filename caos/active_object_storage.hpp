@@ -26,11 +26,20 @@ public:
     union { T data_block; };
 
 public:
-    template<typename... Ags>
-    active_object_storage(active_object_id id, active_object_system* sys, Args&& args)
+    template<typename... Args>
+    active_object_storage(active_object_id id, active_object_system* sys, Args&&... args)
         : control_block(id, sys, self::data_dtor, self::block_dtor)
     {
-        new (&data_block) T(std::forward<Us>(args)...);
+        static_assert(sizeof(active_object_control_block) < CAOS_CACHE_LINE_SIZE,
+                      "active_object_control_block exceeds cache line");
+
+        // static_assert(offsetof(active_object_storage, control_block) == 0,
+        //               "control_block is not aligned to storage");
+
+        // static_assert(offsetof(active_object_storage, data_block) == CAOS_CACHE_LINE_SIZE,
+        //               "data block is not at cache line size boundary");
+
+        new (&data_block) T(std::forward<Args>(args)...);
     }
 
     ~active_object_storage()
@@ -40,15 +49,6 @@ public:
     active_object_storage(const active_object_storage&) = delete;
     active_object_storage& operator = (const active_object_storage&) = delete;
 
-    static_assert(sizeof(active_object_control_block) < CAOS_CACHE_LINE_SIZE,
-                  "active_object_control_block exceeds cache line");
-
-    static_assert(offsetof(active_object_storage, control_block) == 0,
-                  "control_block is not aligned to storage");
-
-    static_assert(offsetof(active_object_storage, data) == CAOS_CACHE_LINE_SIZE,
-                  "data block is not at cache line size boundary");
-
 private:
     static void data_dtor(abstract_active_object* obj)
     {
@@ -56,9 +56,9 @@ private:
         static_cast<T*>(obj)->~T();
     }
 
-    static void block_dtor(actor_control_block* control_block)
+    static void block_dtor(active_object_control_block* control_block)
     {
-        delete reinterpret_cast<actor_storage*>(control_block);
+        delete reinterpret_cast<active_object_storage*>(control_block);
     }
 };
 
