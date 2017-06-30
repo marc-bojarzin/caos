@@ -1,4 +1,4 @@
-#include "active_object.h"
+#include "caos/active_object.hpp"
 
 namespace caos {
 

@@ -3,9 +3,12 @@ CXXFLAGS += -std=c++11 -O0 -g -fpermissive
 LDFLAGS  +=
 
 SRC := \
-	monitorable_active_object.cpp \
-	local_active_object.cpp \
 	abstract_active_object.cpp \
+	active_object.cpp \
+	active_object_control_block.cpp \
+	active_object_system.cpp \
+	local_active_object.cpp \
+	monitorable_active_object.cpp \
 
 OBJ :=  $(SRC:.cpp=.o)
 TARGETS :=  example

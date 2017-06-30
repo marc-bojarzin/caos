@@ -1,6 +1,5 @@
 #include "caos/local_active_object.hpp"
 
-
 namespace caos {
 
 caos::local_active_object::local_active_object()

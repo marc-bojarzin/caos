@@ -18,10 +18,15 @@ class active_object_storage
 {
     typedef active_object_storage self;
 
+    static constexpr size_t pad_length()
+    {
+        return CAOS_CACHE_LINE_SIZE - sizeof(active_object_control_block);
+    }
+
 public:
     active_object_control_block control_block;
 
-    char pad[CAOS_CACHE_LINE_SIZE - sizeof(active_object_control_block)];
+    char pad[pad_length()] = { 0 };
 
     union { T data_block; };
 
@@ -32,12 +37,6 @@ public:
     {
         static_assert(sizeof(active_object_control_block) < CAOS_CACHE_LINE_SIZE,
                       "active_object_control_block exceeds cache line");
-
-        // static_assert(offsetof(active_object_storage, control_block) == 0,
-        //               "control_block is not aligned to storage");
-
-        // static_assert(offsetof(active_object_storage, data_block) == CAOS_CACHE_LINE_SIZE,
-        //               "data block is not at cache line size boundary");
 
         new (&data_block) T(std::forward<Args>(args)...);
     }
