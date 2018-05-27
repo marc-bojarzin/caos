@@ -45,17 +45,16 @@ public:
     /// Returns a pointer to the actual active object.
     inline abstract_active_object* get()
     {
-        return reinterpret_cast<abstract_active_object*>(
-                    reinterpret_cast<intptr_t>(this) + CAOS_CACHE_LINE_SIZE);
+        return reinterpret_cast<abstract_active_object*>(reinterpret_cast<intptr_t>(this) + CAOS_CACHE_LINE_SIZE);
     }
 
     /// Returns a pointer to the control block of an active object.
     static active_object_control_block* from(const abstract_active_object* ptr)
     {
-        return reinterpret_cast<active_object_control_block*>(
-                    reinterpret_cast<intptr_t>(ptr) - CAOS_CACHE_LINE_SIZE);
+        return reinterpret_cast<active_object_control_block*>(reinterpret_cast<intptr_t>(ptr) - CAOS_CACHE_LINE_SIZE);
     }
 
+    /// Returns the ID of the active object.
     inline active_object_id id() const noexcept
     {
         return object_id;

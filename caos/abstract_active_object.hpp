@@ -30,7 +30,7 @@ public:
 
     active_object_system& home_system() const noexcept;
 
-public:
+protected:
     template<typename Callable, typename ... Args>
     inline void post(Callable func, Args&&... args)
     {

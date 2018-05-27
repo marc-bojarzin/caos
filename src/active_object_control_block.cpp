@@ -26,8 +26,7 @@ void intrusive_ptr_release_weak(active_object_control_block* x)
 
 void intrusive_ptr_release(active_object_control_block* x)
 {
-    // release implicit weak pointer if the last strong ref expires
-    // and destroy the data block
+    // release implicit weak pointer if the last strong ref expires and destroy the data block
     if (x->strong_refs.fetch_sub(1, std::memory_order_acq_rel) == 1)
     {
         x->data_dtor(x->get());
